@@ -1,0 +1,25 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  KUBECONFIG_FILE: ${{ secrets.KUBECONFIG }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Deploy to EKS
+      uses: actions/aws/cli@v2
+      with:
+        command: deploy
+        args: |
+          eks update-kubeconfig --region=us-west-2 --name my-eks-cluster
+          kubectl apply -f myapp.yaml
