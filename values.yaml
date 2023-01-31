@@ -1,0 +1,9 @@
+image:
+  repository: mydockerhub/myapp
+  tag: latest
+
+service:
+  type: ClusterIP
+  port: 8080
+
+replicaCount: 1
